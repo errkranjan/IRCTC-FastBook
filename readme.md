@@ -9,7 +9,7 @@
 >It is basically a chrome extension which aims to decrease ticket booking time of Indian Railways at **_https://irctc.co.in_** It is very helpful when you urgently require tatkal booking.<br/>
 
 ## Guide
->Guide will be published soon</br/>
+>Guide will be published soon<br/>
 
 ## YouTube Tutorial Link
 >Will be updated soon
