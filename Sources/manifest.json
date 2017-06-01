@@ -1,0 +1,45 @@
+{
+    "name": "IRCTC FastBook",
+    "description":"Fast Booking at IRCTC",
+    "version":"1.0",
+    "manifest_version":2,
+    "background": {
+        "scripts": ["bg.js"],
+        "persistent": false
+    },
+    "content_scripts": [  
+        {  
+            "matches": [ "https://www.irctc.co.in/eticketing/loginHome.jsf*" ],  
+            "js": ["jquery.min.js","FillLogin.js"]  
+        },
+        {  
+            "matches": [ "https://www.irctc.co.in/eticketing/home*","https://www.irctc.co.in/eticketing/jpInput.jsf*","https://www.irctc.co.in/eticketing/loginConfirm.jsf*" ],  
+            "js": ["jquery.min.js","FillJournyDetals.js"]  
+        },
+        {  
+            "matches": [ "https://www.irctc.co.in/eticketing/trainbetweenstns.jsf*","https://www.irctc.co.in/eticketing/mainpage.jsf*" ],  
+            "js": ["jquery.min.js","SwitchQuota.js"]  
+        },
+        {  
+            "matches": [ "https://www.irctc.co.in/eticketing/AlternateAvailability.jsf*","https://www.irctc.co.in/eticketing/mainpage.jsf*","https://www.irctc.co.in/eticketing/trainbetweenstns.jsf*" ],  
+            "js": ["jquery.min.js","FillForm.js"]  
+        },
+        {  
+            "matches": [ "https://www.irctc.co.in/eticketing/jpInput.jsf*","https://www.irctc.co.in/eticketing/BankResponse*","https://www.irctc.co.in/eticketing/journeySummary.jsf*"],  
+            "js": ["jquery.min.js","ProceedForPayment.js"]  
+        },
+        {  
+            "matches": [ "https://securepayments.fssnet.co.in/ipay/paymentpage.htm*"],  
+            "js": ["jquery.min.js","MakePayment.js"]  
+        }
+    ],
+    "browser_action":{
+        "default_title":"Click me to config"
+    },
+    "icons":{"128":"icon128.png"},
+    "permissions": [
+        "tabs",
+        "storage"
+        ],
+    "background":{"scripts":["bg.js","jquery.min.js","jquery.easytabs.min.js","config.js"]}
+}

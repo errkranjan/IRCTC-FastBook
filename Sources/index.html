@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Configration</title>
+    <script src="jquery.min.js"></script>
+    <script src="config_script.js"></script>
+    <script src="3rdparty/js/tether.min.js"></script>
+    <link rel="stylesheet" href="3rdparty/css/tether.min.css"/>
+    <script src="3rdparty/js/bootstrap.min.js"></script>
+    <script src="3rdparty/jquery-ui.min.js"></script>
+    <script src="3rdparty/js/iziToast.min.js"></script>
+    <link rel="stylesheet" href="3rdparty/jquery-ui.min.css">
+    <link rel="stylesheet" href="3rdparty/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="3rdparty/css/iziToast.min.css"/>
+    <style>
+        .etabs { margin: 0; padding: 0; }
+        .tab { display: inline-block; zoom:1; *display:inline; background: #eee; border: solid 1px #999; border-bottom: none; -moz-border-radius: 4px 4px 0 0; -webkit-border-radius: 4px 4px 0 0; }
+        .tab a { font-size: 14px; line-height: 2em; display: block; padding: 0 10px; outline: none; }
+        .tab a:hover { text-decoration: underline; }
+        .tab.active { background: #fff; padding-top: 6px; position: relative; top: 1px; border-color: #666; }
+        .tab a.active { font-weight: bold; }
+        .tab-container .panel-container { background: #fff; border: solid #666 1px; padding: 10px; -moz-border-radius: 0 4px 4px 4px; -webkit-border-radius: 0 4px 4px 4px; }
+        #tab-container{
+            margin: 10px 10px 10px 10px;
+        }
+        .active{
+            font-weight: bold;
+            color:chocolate;
+        }
+    </style>
+    <scrypt type="text/javascript" src="jquery.min.js"></scrypt>
+</head>
+<body>
+    <div id="tab-container" class="tab-container">
+        <ul class='etabs'>
+            <li class='tab' data-action="LoginDetails" data-autofocus="username"><a href="#">Login Details</a></li>
+            <li class='tab' data-action="JourneyDetails" data-autofocus="FrmStation"><a href="#">Journey Details</a></li>
+            <li class='tab' data-action="PassengerDetails" data-autofocus="psgn1_name"><a href="#">Passenger Details</a></li>
+            <li class='tab' data-action="BankDetails" data-autofocus="Cardnumber"><a href="#">Bank Details</a></li>
+            <li class='tab' data-action="Autorebot" data-autofocus="Robot"><a href="#">Auto Robot</a></li>
+        </ul>
+        <div id="LoginDetails" class="content">
+        <form id="LoginDetals" class="form-control">
+        <table class="table table-striped" style="width:50%;" align="center">
+            <thead>
+                <tr>
+                    <td colspan="2" style="text-align:center; font-weight:bold; font-size:20px;">Please Fill IRCTC Details</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>IRCTC UserName</td><td><input type="text" name="username" id="username" style="width:400px;" form="LoginDetals" required class="form-control"/></td>
+                </tr>
+                <tr>
+                    <td>IRCTC Password</td><td><input type="password" name="password" id="password" style="width:400px;" form="LoginDetals" class="form-control" required/></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center"><input type="submit" id="SaveLogin" value="Save Details" class="form-control btn btn-primary" form="LoginDetals"/> </td>
+                </tr>
+            </tbody>
+        </table>
+        </form>
+        <!-- content -->
+      </div>
+      <div id="JourneyDetails" class="content">
+        <form id="JorDetals" class="form-control">
+        <table class="table table-striped" style="width:50%;" align="center">
+            <thead>
+                <tr>
+                    <td colspan="2" style="text-align:center; font-weight:bold; font-size:20px;">Please Journey Details</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>From Station</td><td><input type="text" name="FrmStation" id="FrmStation" style="width:700px;" form="JorDetals" required class="form-control"/></td>
+                </tr>
+                <tr>
+                    <td>To Station</td><td><input type="text" name="ToStation" id="ToStation" style="width:700px;" form="JorDetals" class="form-control" required/></td>
+                </tr>
+                <tr>
+                    <td>Journey Date</td><td><input type="text" name="date" id="date" style="width:700px;" form="JorDetals" class="form-control" required/></td>
+                </tr>
+                <tr>
+                    <td>Select Quota</td><td style="width:700px;"><input type="radio" value="GN" name="quota" tabindex="2" onclick="checkQuota(this);"> General <input type="radio" value="PT" name="quota" tabindex="2" onclick="checkQuota(this);"> Premium Tatkal <input type="radio" value="HP" name="quota" tabindex="2" onclick="checkQuota(this);"> Physically Handicaped <input type="radio" value="LD" name="quota" tabindex="2" onclick="checkQuota(this);"> Ladies <input type="radio" value="TQ" name="quota" tabindex="2" onclick="checkQuota(this);" checked="checked"> Tatkal</td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center"><input type="submit" id="SaveJourneyDetals" value="Save Details" class="form-control btn btn-primary" form="JorDetals"/> </td>
+                </tr>
+            </tbody>
+        </table>
+        </form>
+        <!-- content -->
+      </div>
+      <div id="PassengerDetails" class="content">
+        <form id="PassDetals" name="PassDetals">
+        <table style="border:1px solid black; coredr-collpse:collpse;">
+            <thead>
+                <tr>
+                    <th>S. No.</th>
+                    <th>Name <font color="#FA5882">*</font></th>
+                    <th>Age <font color="#FA5882">*</font></th>
+                    <th>Gender <font color="#FA5882">*</font></th>
+                    <th>Berth Preference </th>
+                    <th>Senior Citizen</th>
+                    <th>Opt Berth</th>
+                    <th>Nationality<font color="#FA5882">*</font></th>
+                    <th>ID Card Type<font color="#FA5882">*</font></th>
+                    <th>ID Card No.<font color="#FA5882">*</font></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td><input type="text" name="psgn1_name" value="" maxlength="16" size="16" tabindex="2" id="psgn1_name"></td>
+                    <td><input type="text" name="psgn1Age" maxlength="3" style="width:60px;" tabindex="2"></td>
+                    <td><select name="psgn1Gender"size="1" tabindex="2">
+                        <option value=" ">Select</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                        </select>
+                    </td>
+                    <td><select name="berth1Choice" size="1" tabindex="2">
+                        <option value="">No Preference</option>
+                        <option value="LB">LOWER</option>
+                        <option value="MB">MIDDLE</option>
+                        <option value="UB">UPPER</option>
+                        <option value="SL">SIDE LOWER</option>
+                        <option value="SU">SIDE UPPER</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="concession1Opt" tabindex="2" disabled="disabled">
+                    </td>
+                    <td>
+                        <input type="checkbox" name="childBerth1Opt" checked="checked" tabindex="2" disabled="disabled">
+                    </td>
+                    <td>
+                        <select name="nationality1" size="1" style="width:120px;">
+                            <option value="IN" selected="selected">India</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="idCardType1" size="1" style="width:100px;" tabindex="2" disabled="">
+                            <option value="NULL_IDCARD">ID Card Type</option>
+                            <option value="DRIVING_LICENSE">Driving Licence</option>
+                            <option value="PASSPORT">Passport/Travel document</option>
+                            <option value="PANCARD">PAN Card</option>
+                            <option value="VOTER_ICARD">Voter ID-card</option>
+                            <option value="GOVT_ICARD">Govt Issued ID-Card</option>
+                            <option value="STUDENT_ICARD">Student ID-Card</option>
+                            <option value="BANK_PASSBOOK">Bank Passbook</option>
+                            <option value="CREDIT_CARD">Credit card with Photo</option>
+                            <option value="UNIQUE_ICARD">Aadhaar ID</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" name="idCardNumber1" maxlength="16" size="16" style="width:65px;text-transform:uppercase;" tabindex="2" disabled="disabled">
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><input type="text" name="psgn2_name" value="" maxlength="16" size="16" tabindex="2"></td>
+                    <td><input type="text" name="psgn2Age" maxlength="3" style="width:60px;" tabindex="2"></td>
+                    <td><select name="psgn2Gender"size="1" tabindex="2">
+                        <option value=" ">Select</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                        </select>
+                    </td>
+                    <td><select name="berth2Choice" size="1" tabindex="2">
+                        <option value="">No Preference</option>
+                        <option value="LB">LOWER</option>
+                        <option value="MB">MIDDLE</option>
+                        <option value="UB">UPPER</option>
+                        <option value="SL">SIDE LOWER</option>
+                        <option value="SU">SIDE UPPER</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="concession2Opt" tabindex="2" disabled="disabled">
+                    </td>
+                    <td>
+                        <input type="checkbox" name="childBerth2Opt" checked="checked" tabindex="2" disabled="disabled">
+                    </td>
+                    <td>
+                        <select name="nationality2" size="1" style="width:120px;">
+                            <option value="IN" selected="selected">India</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="idCardType2" size="1" style="width:100px;" tabindex="2" disabled="">
+                            <option value="NULL_IDCARD">ID Card Type</option>
+                            <option value="DRIVING_LICENSE">Driving Licence</option>
+                            <option value="PASSPORT">Passport/Travel document</option>
+                            <option value="PANCARD">PAN Card</option>
+                            <option value="VOTER_ICARD">Voter ID-card</option>
+                            <option value="GOVT_ICARD">Govt Issued ID-Card</option>
+                            <option value="STUDENT_ICARD">Student ID-Card</option>
+                            <option value="BANK_PASSBOOK">Bank Passbook</option>
+                            <option value="CREDIT_CARD">Credit card with Photo</option>
+                            <option value="UNIQUE_ICARD">Aadhaar ID</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" name="idCardNumber2" maxlength="16" size="16" style="width:65px;text-transform:uppercase;" tabindex="2" disabled="disabled">
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td><input type="text" name="psgn3_name" value="" maxlength="16" size="16" tabindex="2"></td>
+                    <td><input type="text" name="psgn3Age" maxlength="3" style="width:60px;" tabindex="2"></td>
+                    <td><select name="psgn3Gender"size="1" tabindex="2">
+                        <option value=" ">Select</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                        </select>
+                    </td>
+                    <td><select name="berth3Choice" size="1" tabindex="2">
+                        <option value="">No Preference</option>
+                        <option value="LB">LOWER</option>
+                        <option value="MB">MIDDLE</option>
+                        <option value="UB">UPPER</option>
+                        <option value="SL">SIDE LOWER</option>
+                        <option value="SU">SIDE UPPER</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="concession3Opt" tabindex="2" disabled="disabled">
+                    </td>
+                    <td>
+                        <input type="checkbox" name="childBerth3Opt" checked="checked" tabindex="2" disabled="disabled">
+                    </td>
+                    <td>
+                        <select name="nationality3" size="1" style="width:120px;">
+                            <option value="IN" selected="selected">India</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="idCardType3" size="1" style="width:100px;" tabindex="2" disabled="">
+                            <option value="NULL_IDCARD">ID Card Type</option>
+                            <option value="DRIVING_LICENSE">Driving Licence</option>
+                            <option value="PASSPORT">Passport/Travel document</option>
+                            <option value="PANCARD">PAN Card</option>
+                            <option value="VOTER_ICARD">Voter ID-card</option>
+                            <option value="GOVT_ICARD">Govt Issued ID-Card</option>
+                            <option value="STUDENT_ICARD">Student ID-Card</option>
+                            <option value="BANK_PASSBOOK">Bank Passbook</option>
+                            <option value="CREDIT_CARD">Credit card with Photo</option>
+                            <option value="UNIQUE_ICARD">Aadhaar ID</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" name="idCardNumber3" maxlength="16" size="16" style="width:65px;text-transform:uppercase;" tabindex="2" disabled="disabled">
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td><input type="text" name="psgn4_name" value="" maxlength="16" size="16" tabindex="2"></td>
+                    <td><input type="text" name="psgn4Age" maxlength="3" style="width:60px;" tabindex="2"></td>
+                    <td><select name="psgn4Gender"size="1" tabindex="2">
+                        <option value=" ">Select</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                        </select>
+                    </td>
+                    <td><select name="berth4Choice" size="1" tabindex="2">
+                        <option value="">No Preference</option>
+                        <option value="LB">LOWER</option>
+                        <option value="MB">MIDDLE</option>
+                        <option value="UB">UPPER</option>
+                        <option value="SL">SIDE LOWER</option>
+                        <option value="SU">SIDE UPPER</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="concession4Opt" tabindex="2" disabled="disabled">
+                    </td>
+                    <td>
+                        <input type="checkbox" name="childBerth4Opt" checked="checked" tabindex="2" disabled="disabled">
+                    </td>
+                    <td>
+                        <select name="nationality4" size="1" style="width:120px;">
+                            <option value="IN" selected="selected">India</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="idCardType4" size="1" style="width:100px;" tabindex="2" disabled="">
+                            <option value="NULL_IDCARD">ID Card Type</option>
+                            <option value="DRIVING_LICENSE">Driving Licence</option>
+                            <option value="PASSPORT">Passport/Travel document</option>
+                            <option value="PANCARD">PAN Card</option>
+                            <option value="VOTER_ICARD">Voter ID-card</option>
+                            <option value="GOVT_ICARD">Govt Issued ID-Card</option>
+                            <option value="STUDENT_ICARD">Student ID-Card</option>
+                            <option value="BANK_PASSBOOK">Bank Passbook</option>
+                            <option value="CREDIT_CARD">Credit card with Photo</option>
+                            <option value="UNIQUE_ICARD">Aadhaar ID</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" name="idCardNumber4" maxlength="16" size="16" style="width:65px;text-transform:uppercase;" tabindex="2" disabled="disabled">
+                    </td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td><input type="text" name="psgn5_name" value="" maxlength="16" size="16" tabindex="2"></td>
+                    <td><input type="text" name="psgn5Age" maxlength="3" style="width:60px;" tabindex="2"></td>
+                    <td><select name="psgn5Gender"size="1" tabindex="2">
+                        <option value=" ">Select</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                        </select>
+                    </td>
+                    <td><select name="berth5Choice" size="1" tabindex="2">
+                        <option value="">No Preference</option>
+                        <option value="LB">LOWER</option>
+                        <option value="MB">MIDDLE</option>
+                        <option value="UB">UPPER</option>
+                        <option value="SL">SIDE LOWER</option>
+                        <option value="SU">SIDE UPPER</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="concession5Opt" tabindex="2" disabled="disabled">
+                    </td>
+                    <td>
+                        <input type="checkbox" name="childBerth5Opt" checked="checked" tabindex="2" disabled="disabled">
+                    </td>
+                    <td>
+                        <select name="nationality5" size="1" style="width:120px;">
+                            <option value="IN" selected="selected">India</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="idCardType6" size="1" style="width:100px;" tabindex="2" disabled="">
+                            <option value="NULL_IDCARD">ID Card Type</option>
+                            <option value="DRIVING_LICENSE">Driving Licence</option>
+                            <option value="PASSPORT">Passport/Travel document</option>
+                            <option value="PANCARD">PAN Card</option>
+                            <option value="VOTER_ICARD">Voter ID-card</option>
+                            <option value="GOVT_ICARD">Govt Issued ID-Card</option>
+                            <option value="STUDENT_ICARD">Student ID-Card</option>
+                            <option value="BANK_PASSBOOK">Bank Passbook</option>
+                            <option value="CREDIT_CARD">Credit card with Photo</option>
+                            <option value="UNIQUE_ICARD">Aadhaar ID</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" name="idCardNumber6" maxlength="16" size="16" style="width:65px;text-transform:uppercase;" tabindex="2" disabled="disabled">
+                    </td>
+                    <tr>
+                    <td>6</td>
+                    <td><input type="text" name="psgn6_name" value="" maxlength="16" size="16" tabindex="2"></td>
+                    <td><input type="text" name="psgn6Age" maxlength="3" style="width:60px;" tabindex="2"></td>
+                    <td><select name="psgn6Gender"size="1" tabindex="2">
+                        <option value=" ">Select</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                        </select>
+                    </td>
+                    <td><select name="berth6Choice" size="1" tabindex="2">
+                        <option value="">No Preference</option>
+                        <option value="LB">LOWER</option>
+                        <option value="MB">MIDDLE</option>
+                        <option value="UB">UPPER</option>
+                        <option value="SL">SIDE LOWER</option>
+                        <option value="SU">SIDE UPPER</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="concession6Opt" tabindex="2" disabled="disabled">
+                    </td>
+                    <td>
+                        <input type="checkbox" name="childBerth6Opt" checked="checked" tabindex="2" disabled="disabled">
+                    </td>
+                    <td>
+                        <select name="nationality6" size="1" style="width:120px;">
+                            <option value="IN" selected="selected">India</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="idCardType6" size="1" style="width:100px;" tabindex="2" disabled="">
+                            <option value="NULL_IDCARD">ID Card Type</option>
+                            <option value="DRIVING_LICENSE">Driving Licence</option>
+                            <option value="PASSPORT">Passport/Travel document</option>
+                            <option value="PANCARD">PAN Card</option>
+                            <option value="VOTER_ICARD">Voter ID-card</option>
+                            <option value="GOVT_ICARD">Govt Issued ID-Card</option>
+                            <option value="STUDENT_ICARD">Student ID-Card</option>
+                            <option value="BANK_PASSBOOK">Bank Passbook</option>
+                            <option value="CREDIT_CARD">Credit card with Photo</option>
+                            <option value="UNIQUE_ICARD">Aadhaar ID</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" name="idCardNumber6" maxlength="16" size="16" style="width:65px;text-transform:uppercase;" tabindex="2" disabled="disabled">
+                    </td>
+                        </tr>
+                <tr>
+                    <td colspan="2">Mobile Number</td><td colspan="8"><input type="number" name="MobileNo" id="MobileNo" style="width:200px;"></td>  
+                </tr>
+                <tr>
+                    <td colspan="10" style="text-align:center;"><input type="submit" value="Save Passenger Detals" class="btn btn-primary"></td>  
+                </tr>
+            </tbody>
+          </table>
+        </form>
+        <!-- content -->
+      </div>
+      <div id="BankDetails" class="content">
+        <form id="bnkDetals" class="form-control">
+        <table class="table table-striped" style="width:50%;" align="center">
+            <thead>
+                <tr>
+                    <td colspan="2" style="text-align:center; font-weight:bold; font-size:20px;">Please Fill Crad Details</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Card Number</td><td><input type="number" id="Cardnumber" name="Cardnumber" class="form-control"/></td>
+                </tr>
+                <tr>
+                    <td>Card Holder Name</td><td><input type="text" name="CardHolderName" class="form-control"/></td>
+                </tr>
+                <tr>
+                    <td>Expiry Date</td><td><div class="input-group">
+                    <select name="debiMonth" id="debiMonth" style="width:100px;" class="inline-form">
+                    <option value="0">MM</option>
+                    <option value="1">01</option>
+                    <option value="2">02</option>
+                    <option value="3">03</option>
+                    <option value="4">04</option>
+                    <option value="5">05</option>
+                    <option value="6">06</option>
+                    <option value="7">07</option>
+                    <option value="8">08</option>
+                    <option value="9">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>																							</select>
+<select name="debiYear" id="debiYear" style="width:130px;">
+    <option value="0">YYYY</option>
+    <option value="2017">2017</option>
+    <option value="2018">2018</option>
+    <option value="2019">2019</option>
+    <option value="2020">2020</option>
+    <option value="2021">2021</option>
+    <option value="2022">2022</option>
+    <option value="2023">2023</option>
+    <option value="2024">2024</option>
+    <option value="2025">2025</option>
+    <option value="2026">2026</option>
+    <option value="2027">2027</option>
+    <option value="2028">2028</option>
+    <option value="2029">2029</option>
+    <option value="2030">2030</option>
+    <option value="2031">2031</option>
+    <option value="2032">2032</option>
+    <option value="2033">2033</option>
+    <option value="2034">2034</option>
+    <option value="2035">2035</option>
+    <option value="2036">2036</option>
+    <option value="2037">2037</option>
+    <option value="2038">2038</option>
+    <option value="2039">2039</option>
+    <option value="2040">2040</option>
+    <option value="2041">2041</option>
+    <option value="2042">2042</option>
+    <option value="2043">2043</option>
+    <option value="2044">2044</option>
+    <option value="2045">2045</option>
+    <option value="2046">2046</option>
+    <option value="2047">2047</option>
+    <option value="2048">2048</option>
+    <option value="2049">2049</option>
+    <option value="2050">2050</option>
+    <option value="2051">2051</option>
+    <option value="2052">2052</option>
+    <option value="2053">2053</option>
+    <option value="2054">2054</option>
+    <option value="2055">2055</option>
+    <option value="2056">2056</option>
+    <option value="2057">2057</option>
+    <option value="2058">2058</option>
+    <option value="2059">2059</option>
+    <option value="2060">2060</option>
+    <option value="2061">2061</option>
+    <option value="2062">2062</option>
+    <option value="2063">2063</option>
+    <option value="2064">2064</option>
+    <option value="2065">2065</option>
+    <option value="2066">2066</option>
+    <option value="2067">2067</option>
+    <option value="2068">2068</option>
+                    </select></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" id="SaveBankDetails" class="btn btn-primary"/></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="2" style="text-align:center;">*Supported Banks are for automation<br/>1. Axis Bank</th>
+                </tr>
+            </tfoot>
+            </table>
+          </form>
+        <!-- content -->
+      </div>
+        
+        <div id="Autorebot" class="content">
+         <center><h1>Feature will be introduced in future</h1></center>
+        </div>
+    </div>
+    <div style="text-align:center; font-size:bold;">Developed By : Ritesh K. Ranjan</div>
+</body>
+</html>
